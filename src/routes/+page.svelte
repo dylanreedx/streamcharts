@@ -32,8 +32,31 @@
 
 	let streamers: Channel[] = [];
 
-	const addStreamer = (streamer: Channel) => {
+	const addStreamer = async (streamer: Channel) => {
 		streamers = [...streamers, streamer];
+
+		const response = await fetch('/api/streamer-hours', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ channel: streamer.display_name })
+		});
+
+		if (response.ok) {
+			console.log('Streamer added');
+
+			// add hours streamed to streamer object
+			const data = await response.json();
+			const streamerIndex = streamers.findIndex((s) => s.display_name === streamer.display_name);
+			streamers[streamerIndex].hours_streamed = data.hoursStreamed;
+		} else {
+			console.error('Failed to add streamer');
+		}
+	};
+
+	const removeStreamer = (streamer: Channel) => {
+		streamers = streamers.filter((s) => s.display_name !== streamer.display_name);
 	};
 
 	let screens = ['streamerList', 'searchStreamers'];
@@ -69,7 +92,7 @@
 						<Streamer /> -->
 
 						{#each streamers as streamer}
-							<Streamer {streamer} />
+							<Streamer {streamer} {removeStreamer} />
 						{/each}
 					</ul>
 					<button
@@ -130,8 +153,8 @@
 											<button
 												class="p-2 hover:bg-gray-100 duration-200 flex items-center gap-4 cursor-pointer w-full"
 												on:click={() => {
-													addStreamer(channel);
 													currentScreen = screens[0];
+													addStreamer(channel);
 												}}
 											>
 												<img
