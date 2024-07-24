@@ -121,8 +121,7 @@
 									type: 'spring',
 									duration: 0.25,
 									stiffness: 200,
-									damping: 20,
-									delay: 0.25
+									damping: 20
 								}}
 							>
 								<ul use:motion class="top-16 w-full bg-white rounded-xl shadow-2xl overflow-hidden">
