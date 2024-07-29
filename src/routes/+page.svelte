@@ -35,7 +35,7 @@
 	const addStreamer = async (streamer: Channel) => {
 		streamers = [...streamers, streamer];
 
-		const response = await fetch('/api/streamer-hours', {
+		const response = await fetch('/api/streamer', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -50,6 +50,7 @@
 			const data = await response.json();
 			const streamerIndex = streamers.findIndex((s) => s.display_name === streamer.display_name);
 			streamers[streamerIndex].hours_streamed = data.hoursStreamed;
+			streamers[streamerIndex].rank = data.rank;
 		} else {
 			console.error('Failed to add streamer');
 		}
@@ -68,9 +69,7 @@
 		damping: 20
 	};
 
-	let currentScreen = screens[1];
-	console.log(channels);
-	console.log(streamers);
+	let currentScreen = screens[0];
 </script>
 
 <section
@@ -88,9 +87,6 @@
 				<div use:motion>
 					<h2 class="text-2xl font-medium opacity-35 my-2 uppercase">July 2024</h2>
 					<ul class="flex flex-col gap-2">
-						<!-- <Streamer />
-						<Streamer /> -->
-
 						{#each streamers as streamer}
 							<Streamer {streamer} {removeStreamer} />
 						{/each}

@@ -5,6 +5,21 @@
 
 	export let streamer: Channel;
 	export let removeStreamer: (streamer: Channel) => void;
+
+	// make a random color based on the streamer's rank
+	let randomColor = () => {
+		let colors = [
+			'bg-red-200',
+			'bg-yellow-200',
+			'bg-green-200',
+			'bg-blue-200',
+			'bg-indigo-200',
+			'bg-purple-200',
+			'bg-pink-200'
+		];
+
+		return colors[Math.floor(Math.random() * colors.length)];
+	};
 </script>
 
 <Motion
@@ -25,13 +40,27 @@
 			<X class="w-5 h-5" />
 		</button>
 		<div class="flex items-center gap-4">
-			<img
-				src={streamer.thumbnail_url}
-				alt={streamer.display_name}
-				class="w-20 h-20 rounded-full"
-			/>
+			<div class="relative">
+				<img
+					src={streamer.thumbnail_url}
+					alt={streamer.display_name}
+					class="w-20 h-20 rounded-full"
+				/>
+
+				<p
+					class={`font-medium absolute -bottom-2 -right-2 shadow-lg text-sm rounded-full px-[0.4rem] py-1 border-[0.5px] border-gray-100 ${randomColor()}`}
+				>
+					{streamer.rank || 'Loading'}
+				</p>
+			</div>
+
 			<h3 class="text-xl font-medium">{streamer.display_name}</h3>
 		</div>
-		<div>{streamer.hours_streamed || 'Loading'}</div>
+		<div class="flex items-center gap-4">
+			<div>
+				<p class="font-bold text-2xl">{streamer.hours_streamed || 'Loading'}</p>
+				<span class="text-xs text-gray-400">Hours Streamed</span>
+			</div>
+		</div>
 	</li>
 </Motion>

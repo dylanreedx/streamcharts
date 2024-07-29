@@ -3,4 +3,5 @@ export type Channel = {
 	id: string;
 	thumbnail_url: string;
 	hours_streamed: string;
+	rank: string;
 };
