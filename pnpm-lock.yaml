@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@sparticuz/chromium-min':
+    specifier: ^126.0.0
+    version: 126.0.0
   axios:
     specifier: ^1.7.2
     version: 1.7.2
@@ -600,6 +603,16 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@sparticuz/chromium-min@126.0.0:
+    resolution: {integrity: sha512-Wn51LRKXHwBEfm6OWnZmcMVkzWg1TQvSMsG0H5p6UFrOcM6GUjGLxty9Er863EuJC2gwIEc6kNr8h/mhT893oA==}
+    engines: {node: '>= 16'}
+    dependencies:
+      follow-redirects: 1.15.6
+      tar-fs: 3.0.6
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /@sveltejs/adapter-auto@3.2.2(@sveltejs/kit@2.5.18):
     resolution: {integrity: sha512-Mso5xPCA8zgcKrv+QioVlqMZkyUQ5MjDJiEPuG/Z7cV/5tmwV7LmcVWk5tZ+H0NCOV1x12AsoSpt/CwFwuVXMA==}

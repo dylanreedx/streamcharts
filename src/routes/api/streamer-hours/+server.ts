@@ -1,14 +1,15 @@
-import puppeteer from 'puppeteer';
+import { getBrowser } from '$lib/serverless-browser.js';
 
 export async function POST({ request }) {
 	const { channel } = await request.json();
 
 	console.time('Total Execution Time');
 
-	const browser = await puppeteer.launch({
-		headless: true,
-		args: ['--no-sandbox', '--disable-setuid-sandbox']
-	});
+	// const browser = await puppeteer.launch({
+	// 	headless: true,
+	// 	args: ['--no-sandbox', '--disable-setuid-sandbox']
+	// });
+	const browser = await getBrowser();
 
 	console.time('Browser Launch Time');
 	const page = await browser.newPage();
